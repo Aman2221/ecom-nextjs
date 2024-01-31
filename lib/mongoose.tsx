@@ -5,5 +5,7 @@ export default async function initMongoose() {
   if (mongoose.connection.readyState === 1) {
     return mongoose.connection.asPromise();
   }
-  return await mongoose.connect(CONN_URL);
+  return await mongoose
+    .connect(CONN_URL)
+    .then(() => console.log("database connected"));
 }

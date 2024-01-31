@@ -1,10 +1,27 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 
 const Products = () => {
+  const [productInfo, setProductsInto] = useState([]);
+
+  useEffect(() => {
+    fetch("/api")
+      .then((response) => response.json())
+      .then((json) => {
+        console.log("json:", json);
+        setProductsInto(json);
+      });
+  }, []);
+
   return (
     <div className="p-5">
       <div>
-        <h2 className="text-2xl">Mobiles</h2>
+        <h2
+          className="text-2xl"
+          onClick={() => console.log("productInfo :", productInfo)}
+        >
+          Mobiles
+        </h2>
         <div className="py-4"></div>
         <div className="w-64">
           <div className="bg-blue-100 p-5 rounded">
