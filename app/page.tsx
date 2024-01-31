@@ -1,3 +1,9 @@
+import Products from "../components/Products";
+
 export default function Home() {
-  return <main className=""></main>;
+  return (
+    <main className="">
+      <Products />
+    </main>
+  );
 }
