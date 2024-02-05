@@ -4,13 +4,23 @@ import React, { useEffect, useState } from "react";
 const Products = () => {
   const [productInfo, setProductsInto] = useState([]);
 
+  const handleProduct = async () => {
+    // await fetch("/api/product")
+    //   .then((response) => {
+    //     console.log("res :", response);
+    //     return response.json();
+    //   })
+    //   .then((json) => {
+    //     console.log("json:", json);
+    //     // setProductsInto(json);
+    //   });
+
+    const response = await fetch("/api/product");
+    const movies = await response.json();
+    console.log(response, movies);
+  };
   useEffect(() => {
-    fetch("/api")
-      .then((response) => response.json())
-      .then((json) => {
-        console.log("json:", json);
-        setProductsInto(json);
-      });
+    handleProduct();
   }, []);
 
   return (
@@ -18,7 +28,7 @@ const Products = () => {
       <div>
         <h2
           className="text-2xl"
-          onClick={() => console.log("productInfo :", productInfo)}
+          // onClick={() => console.log("productInfo :", productInfo)}
         >
           Mobiles
         </h2>
