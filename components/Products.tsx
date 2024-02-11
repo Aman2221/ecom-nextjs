@@ -51,7 +51,7 @@ const Products = () => {
             value={searchKey}
             onChange={handleSearch}
             type="text"
-            placeholder="Search for product..."
+            placeholder="Search for product...."
             className="bg-gray-100 w-full w-100 py-2 px-4 rounded-xl"
           />
           <div className="mt-5">

@@ -1,6 +1,6 @@
 let mongoose = require("mongoose");
 let Schema = mongoose.Schema;
-let model = mongoose.model;
+mongoose.Promise = global.Promise;
 const prodctSchema = new Schema({
   name: String,
   description: String,
@@ -9,5 +9,5 @@ const prodctSchema = new Schema({
   url: String,
 });
 
-const product = model("product", prodctSchema);
-export default product;
+export const product_model =
+  mongoose.models.product || mongoose.model("product", prodctSchema); //model and models are different

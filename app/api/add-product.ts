@@ -1,4 +1,4 @@
-import product from "@/models/product";
+import { product_model } from "@/models/product";
 import { NextApiResponse, NextApiRequest } from "next";
 
 export async function POST(req: NextApiRequest, res: NextApiResponse) {
@@ -8,7 +8,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
             res.status(400).send("can not add this product, missing fields")
         }
         else {
-            const product_data = await product.create(req.body);
+            const product_data = await product_model.create(req.body);
             return res.status(200).send(product_data);
         }
     }
