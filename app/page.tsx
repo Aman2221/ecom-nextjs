@@ -4,13 +4,8 @@ import { ProductContextProvider } from "@/context/ProductContext";
 
 export default function Home() {
   return (
-    <ProductContextProvider
-      child={
-        <div className="p-5">
-          <HomePage />
-          <Footer />
-        </div>
-      }
-    ></ProductContextProvider>
+    <div className="p-5">
+      <HomePage />
+    </div>
   );
 }

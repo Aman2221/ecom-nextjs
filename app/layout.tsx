@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
+import { ProductContextProvider } from "@/context/ProductContext";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "ECOM-MERN",
@@ -13,7 +15,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ProductContextProvider
+          child={
+            <>
+              {children}
+              <Footer />
+            </>
+          }
+        ></ProductContextProvider>
+      </body>
     </html>
   );
 }
