@@ -1,8 +1,12 @@
+import { ProductContext } from "@/context/ProductContext";
 import { type_products } from "@/interfaces/product";
-import React from "react";
+import React, { useContext } from "react";
 
 const Product = ({ product }: { product: type_products }) => {
-  const handleAddToCart = () => {};
+  const { setSelectedProducts }: any = useContext(ProductContext);
+  const handleAddToCart = () => {
+    setSelectedProducts((prev: string[]) => [...prev, product._id]);
+  };
   return (
     <div className="w-64">
       <div className="bg-blue-100 p-5 rounded-xl">

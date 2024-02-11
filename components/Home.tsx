@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { type_products } from "../interfaces/product";
-import Product from "./product";
+import Product from "./ProductMap";
 
-const Products = () => {
+const HomePage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [productInfo, setProductsInto] = useState<type_products[]>([]);
   const [filterdProd, setFilterdProd] = useState<type_products[]>([]);
@@ -91,4 +91,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default HomePage;
