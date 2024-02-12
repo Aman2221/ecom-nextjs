@@ -9,18 +9,21 @@ const CartPage = () => {
 
   const getCartProducts = () => {
     try {
+      const product_ids: unknown = new Set(selectedProducts);
+      const uniqe_ids = [...(product_ids as string[])];
+      console.log("uniqe_ids :", uniqe_ids);
+      fetch("/api?ids=" + uniqe_ids.join(","))
+        .then((response) => response.json())
+        .then((json) => setProductsInfo(json));
     } catch (e) {
       console.log("message", e);
     }
   };
+
   useEffect(() => {
-    const product_ids: unknown = new Set(selectedProducts);
-    const uniqe_ids = [...(product_ids as string[])];
-    fetch("/api?ids=" + uniqe_ids.join(","))
-      .then((response) => response.json())
-      .then((json) => setProductsInfo(json));
-    console.log("uniqe_ids :", uniqe_ids);
+    getCartProducts();
   }, [selectedProducts]);
+
   return (
     <div>
       {productsInfo.length ? (
