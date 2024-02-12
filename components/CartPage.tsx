@@ -33,11 +33,30 @@ const CartPage = () => {
               <div className="bg-gray-100 p-3 rounded-xl shrink-0">
                 <img className="w-24" src={product.url} alt="" />
               </div>
-              <div className="pl-4">
+              <div className="pl-4 grow">
                 <h4 className="font-bold text-lg">{product.name}</h4>
                 <p className="text-sm leading-4 text-gray-500">
                   {product.description}
                 </p>
+                <div className="flex w-100">
+                  <div className="grow">{product.price}</div>
+                  <div>
+                    <button className="border border-emerald-500 px-2 rounded-lg text-emerald-500">
+                      -
+                    </button>
+                    <span className="px-2">
+                      {
+                        selectedProducts.filter(
+                          (id: string) => id === product._id
+                        ).length
+                      }
+                    </span>
+
+                    <button className="bg-emerald-500 px-2 rounded-lg text-white">
+                      +
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           );
