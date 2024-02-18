@@ -27,6 +27,26 @@ const CartPage = () => {
     setSelectedProducts((prev: string[]) => [...prev, id]);
   };
 
+  const handleSubmit = async (e: SubmitEvent) => {
+    e.preventDefault();
+    try {
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        body: JSON.stringify({ ...userData, productIds: selectedProducts }),
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+      if (res.ok) {
+        console.log("Yeai!");
+      } else {
+        console.log("Oops! Something is wrong.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const decreaseProdQuan = (id: string) => {
     const pos = selectedProducts.indexOf(id);
     if (pos !== -1) {
@@ -111,7 +131,7 @@ const CartPage = () => {
             );
           })}
 
-          <form action="/api/checkout" method="POST">
+          <form onSubmit={handleSubmit as any}>
             <div>
               <input
                 className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2 outline-none"
@@ -120,6 +140,7 @@ const CartPage = () => {
                 onChange={handleChange}
                 name="name"
                 required
+                value={userData.name}
               />
               <input
                 className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2 outline-none"
@@ -128,6 +149,7 @@ const CartPage = () => {
                 onChange={handleChange}
                 name="email"
                 required
+                value={userData.email}
               />
               <input
                 className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2 outline-none"
@@ -136,6 +158,7 @@ const CartPage = () => {
                 onChange={handleChange}
                 name="street"
                 required
+                value={userData.street}
               />
               <input
                 className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2 outline-none"
@@ -144,6 +167,7 @@ const CartPage = () => {
                 onChange={handleChange}
                 name="city"
                 required
+                value={userData.city}
               />
               <div className="mt-4">
                 <div className="flex my-3">
@@ -165,12 +189,15 @@ const CartPage = () => {
               </div>
             </div>
             <input
-            className="hidden"
+              className="hidden"
               type="hidden"
               name="product"
               value={selectedProducts.join(",")}
             />
-            <button className="bg-emerald-500 px-5 py-2 text-white w-full rounded-xl font-bold my-4 shadow-emerald-200 shadow-lg">
+            <button
+              type="submit"
+              className="bg-emerald-500 px-5 py-2 text-white w-full rounded-xl font-bold my-4 shadow-emerald-200 shadow-lg"
+            >
               Pay
             </button>
           </form>
