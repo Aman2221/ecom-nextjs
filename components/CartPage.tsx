@@ -40,7 +40,6 @@ const CartPage = () => {
     try {
       const product_ids: unknown = new Set(selectedProducts);
       const uniqe_ids = [...(product_ids as string[])];
-      console.log("uniqe_ids :", uniqe_ids);
       fetch("/api?ids=" + uniqe_ids.join(","))
         .then((response) => response.json())
         .then((json: type_products[]) => {
@@ -68,7 +67,7 @@ const CartPage = () => {
   }, [selectedProducts]);
 
   return (
-    <div>
+    <div className="p-5">
       {productsInfo.length ? (
         <div>
           {productsInfo.map((product: type_products) => {
@@ -120,6 +119,7 @@ const CartPage = () => {
                 placeholder="Your name"
                 onChange={handleChange}
                 name="name"
+                required
               />
               <input
                 className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2 outline-none"
@@ -127,6 +127,7 @@ const CartPage = () => {
                 placeholder="Email address"
                 onChange={handleChange}
                 name="email"
+                required
               />
               <input
                 className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2 outline-none"
@@ -134,6 +135,7 @@ const CartPage = () => {
                 placeholder="Street address, number"
                 onChange={handleChange}
                 name="street"
+                required
               />
               <input
                 className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2 outline-none"
@@ -141,6 +143,7 @@ const CartPage = () => {
                 placeholder="City and postal code"
                 onChange={handleChange}
                 name="city"
+                required
               />
               <div className="mt-4">
                 <div className="flex my-3">
@@ -162,7 +165,8 @@ const CartPage = () => {
               </div>
             </div>
             <input
-              type="text"
+            className="hidden"
+              type="hidden"
               name="product"
               value={selectedProducts.join(",")}
             />
