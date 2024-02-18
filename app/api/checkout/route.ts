@@ -4,7 +4,10 @@ import { order_model } from "@/models/order";
 import { product_model } from "@/models/product";
 import { NextApiResponse } from "next";
 import { NextResponse } from "next/server";
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+import Stripe from 'stripe';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
+
 
 export async function POST(req: any, res: NextApiResponse) {
     await initMongoose();
@@ -43,18 +46,28 @@ export async function POST(req: any, res: NextApiResponse) {
             name,
         });
 
-        console.log("order :", order);
-        console.log("req.headers :", req.headers, "key :", process.env.STRIPE_SECRET_KEY)
-        const session = await stripe.checkout.create({
-            line_items: line_items,
-            mode: "payment",
-            custom_email: email,
-            success_url: `${req.headers.origin}/?success=true`,
-            cancel_url: `${req.headers.origin}/?canceled=true`,
-            metadata: { orderId: order._id.toString() },
-        });
-        console.log("session :", session)
-        return res.redirect(session.url);
+        console.log("order :", req.headers);
+        try {
+            const session = await stripe.checkout.sessions.create({
+                payment_method_types: ['card'],
+                mode: 'payment',
+                line_items: line_items,
+                //     custom_email: email,
+                success_url: `http://localhost:3000/success=true`,
+                cancel_url: `http://localhost:3000/?canceled=true`,
+                metadata: { orderId: order._id.toString() },
+            });
+
+            console.log("session :", session)
+            console.log("url :", session.url)
+            NextResponse.redirect(session.url as string);
+            return NextResponse.json({ message: 'success' });
+        }
+        catch (e: any) {
+            console.error('Error creating checkout session:', e);
+            return NextResponse.json({ message: 'Internal Server Error' });
+        }
+
     }
     catch (e: any) {
         return NextResponse.json({ message: e.message })
