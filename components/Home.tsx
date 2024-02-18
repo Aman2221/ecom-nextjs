@@ -1,7 +1,8 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { type_products } from "../interfaces/product";
 import Product from "./ProductMap";
+import { ProductContext } from "@/context/ProductContext";
 
 const HomePage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -9,6 +10,15 @@ const HomePage = () => {
   const [filterdProd, setFilterdProd] = useState<type_products[]>([]);
   const [categories, setCaregories] = useState([]);
   const [searchKey, setSerachKey] = useState("");
+  const { setSelectedProducts }: any = useContext(ProductContext);
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    if (window.location.href.includes("success")) {
+      setSelectedProducts([]);
+      setSuccess(false);
+    }
+  }, []);
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
@@ -46,7 +56,14 @@ const HomePage = () => {
       {isLoading ? (
         <h1>Loading</h1>
       ) : (
-        <div className="p-5">
+        <div className="">
+          {success ? (
+            <div className="mb-5 bg-green-400 text-white text-lg p-5 rounded-lg">
+              Thanks for your order!
+            </div>
+          ) : (
+            ""
+          )}
           <input
             value={searchKey}
             onChange={handleSearch}
