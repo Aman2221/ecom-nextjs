@@ -1,9 +1,9 @@
 import initMongoose from "@/lib/mongoose";
 import { product_model } from "@/models/product";
 import { NextApiResponse, NextApiRequest } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: Request | NextRequest, res: NextApiResponse) {
   await initMongoose();
   if (req.method == "POST") {
     return NextResponse.json({ message: "its a post request" });
