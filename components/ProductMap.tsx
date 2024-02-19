@@ -39,12 +39,12 @@ const Product = ({ product }: { product: type_products }) => {
         >
           +
         </button>
-        <button
+        {/* <button
           onClick={() => deletedProduct(product._id)}
           className="bg-emerald-400 text-white py-1 px-3 rounded-xl"
         >
           D
-        </button>
+        </button> */}
       </div>
     </div>
   );
