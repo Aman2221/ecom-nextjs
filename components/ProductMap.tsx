@@ -7,6 +7,21 @@ const Product = ({ product }: { product: type_products }) => {
   const handleAddToCart = () => {
     setSelectedProducts((prev: string[]) => [...prev, product._id]);
   };
+
+  const deletedProduct = async (id: string) => {
+    try {
+      const res = await fetch("/api/delete-product", {
+        method: "DELETE",
+        body: JSON.stringify({ id }),
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+      console.log("res :", res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="w-64">
       <div className="bg-blue-100 p-5 rounded-xl">
@@ -23,6 +38,12 @@ const Product = ({ product }: { product: type_products }) => {
           className="bg-emerald-400 text-white py-1 px-3 rounded-xl"
         >
           +
+        </button>
+        <button
+          onClick={() => deletedProduct(product._id)}
+          className="bg-emerald-400 text-white py-1 px-3 rounded-xl"
+        >
+          D
         </button>
       </div>
     </div>

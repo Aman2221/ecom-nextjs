@@ -37,11 +37,6 @@ const CartPage = () => {
           "content-type": "application/json",
         },
       });
-      if (res.ok) {
-        console.log("Yeai!");
-      } else {
-        console.log("Oops! Something is wrong.");
-      }
     } catch (error) {
       console.log(error);
     }
